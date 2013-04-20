@@ -1,4 +1,4 @@
-(ns clojure-course-task04.model
+(ns clojure-course-task05.model
   (:require [korma [db :refer :all] [core :refer :all]]
             [feedparser-clj.core :as parser]))
 

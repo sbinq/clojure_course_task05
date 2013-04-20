@@ -9,6 +9,6 @@
                  [lib-noir "0.4.9"]
                  [org.clojars.scsibug/feedparser-clj "0.4.0"]]
   :plugins [[lein-ring "0.8.2"]]
-  :ring {:handler clojure-course-task04.handler/app}
+  :ring {:handler clojure-course-task05.handler/app}
   :profiles
   {:dev {:dependencies [[ring-mock "0.1.3"]]}})
