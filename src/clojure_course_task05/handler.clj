@@ -6,7 +6,11 @@
             [noir.util.middleware :as noir]
             [noir.session :as session]
             [ring.adapter.jetty :as jetty]
-            [clojure-course-task04.view :as view]))
+            [clojure-course-task05.view :as view]))
+
+;;; TODO: implement unread articles summary page - all feeds
+;;; TODO: implement feed-specific page with "Unsubscribe" and "Mark All Read" actions; optionally "N New Items" / "All Items" switch (+ pagination?)
+;;; TODO: implement new users registration; optionally - with many auth backends; optionally - admin user with misc administrative UI;
 
 (defroutes app-routes
   (GET "/" [] (resp/redirect "/feeds"))

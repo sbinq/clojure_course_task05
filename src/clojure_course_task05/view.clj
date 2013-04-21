@@ -4,4 +4,4 @@
 
 
 (defn show-feeds []
-  "fuck I need feeds here, nononon")
+  (clojure.java.io/resource "public/html/main.html"))

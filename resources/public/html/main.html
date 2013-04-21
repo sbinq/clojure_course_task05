@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Yet Another Google Reader Alternative, Pre-Pre-Pre-Alpha version</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="/assets/css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+      .feeds-actions {
+        padding-top: 20px;
+        padding-bottom: 20px;
+      }
+      .credit {
+        margin: 20px 0;
+        text-align: center
+      }
+      .page-payload {
+        padding-top: 60px;
+      }
+
+      /* Sticky footer styles
+      -------------------------------------------------- */
+
+      html,
+      body {
+        height: 100%;
+        /* The html and body elements cannot have any padding or margin. */
+      }
+
+      /* Wrapper for page content to push down footer */
+      #wrap {
+        min-height: 100%;
+        height: auto !important;
+        height: 100%;
+        /* Negative indent footer by it's height */
+        margin: 0 auto -60px;
+      }
+
+      /* Set the fixed height of the footer here */
+      #push,
+      #footer {
+        height: 60px;
+      }
+      #footer {
+        background-color: #f5f5f5;
+      }
+
+      /* Lastly, apply responsive CSS fixes as necessary */
+      @media (max-width: 767px) {
+        #footer {
+          margin-left: -20px;
+          margin-right: -20px;
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+      }
+    </style>
+    <link href="/assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+  </head>
+
+  <body>
+    <div id="wrap">
+      <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container-fluid">
+            <a class="brand" href="#">Yet Another Google Reader Alternative</a>
+            <div class="nav-collapse collapse">
+              <p class="navbar-text pull-right">
+                TODO: impl users - Logged in as <a href="#" class="navbar-link">Username</a>
+              </p>
+            </div><!--/.nav-collapse -->
+          </div>
+        </div>
+      </div>
+
+      <div class="container-fluid page-payload">
+        <div class="row-fluid">
+          <div class="span3">
+            <div class="feeds-actions">
+              <button class="btn btn-primary subscribe-to-feed-button">Subscribe</button>
+            </div>
+
+            <div class="well sidebar-nav">
+              <ul class="nav nav-list">
+                <li><a href="#">All New Items</a></li>
+                <li class="nav-header">Your Subscriptions</li>
+                <li class="active"><a href="#">Link</a></li>
+                <li><a href="#">Link</a></li>
+                <li><a href="#">Link</a></li>
+                <li><a href="#">Link</a></li>
+                <li><a href="#">Link</a></li>
+                <li><a href="#">Link</a></li>
+                <li><a href="#">Link</a></li>
+                <li><a href="#">Link</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="span9">
+            <div class="row-fluid feed-title-row">
+              <div class="span9">
+                <h3 class="feed-title">Some feed unread articles below</h3>
+              </div>
+            </div><!--/row-->
+            <div class="row-fluid feed-item-row">
+              <div class="span9">
+                <div class="article-description">
+                  <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                </div>
+                <p>
+                  <span class="article-actions-container">
+                    <button class="btn btn-mini mark-article-read">Mark Read</button>
+                    <button class="btn btn-mini mark-article-unread">Mark Unread</button>
+                  </span>
+                </p>
+              </div><!--/span-->
+            </div><!--/row-->
+
+                        <div class="row-fluid feed-item-row">
+              <div class="span9">
+                <div class="article-description">
+                  <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                </div>
+                <p>
+                  <span class="article-actions-container">
+                    <button class="btn btn-mini mark-article-read">Mark Read</button>
+                    <button class="btn btn-mini mark-article-unread">Mark Unread</button>
+                  </span>
+                </p>
+              </div><!--/span-->
+            </div><!--/row-->
+            
+          </div><!--/span-->
+        </div><!--/row-->
+      </div><!--/.fluid-container-->
+
+      <div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; Stanislau Binko for Clojure Course Task 05, 2013</p>
+      </div>
+    </div>
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- <script src="/assets/js/jquery-1.9.1.js"></script> -->
+    <!-- <script src="/assets/js/bootstrap.js"></script> -->
+  </body>
+</html>
