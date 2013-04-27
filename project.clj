@@ -10,7 +10,8 @@
                  [org.clojars.scsibug/feedparser-clj "0.4.0"]
                  [enfocus "1.0.1"]
                  [jayq "2.3.0"]
-                 [com.cemerick/piggieback "0.0.4"]]
+                 [com.cemerick/piggieback "0.0.4"]
+                 [com.cemerick/friend "0.1.4"]]
   :plugins [[lein-ring "0.8.3"] [lein-cljsbuild "0.3.0"]]
   :ring {:handler clojure-course-task05.handler/app}
   :profiles

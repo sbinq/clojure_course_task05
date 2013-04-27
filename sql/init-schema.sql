@@ -24,9 +24,13 @@ create table article (
 
 create table user (
        id int not null auto_increment,
+       username varchar(255) not null,
+       password varchar(255) not null,
 
-       primary key (id)
+       primary key (id),
+       unique key user_username_unique (username)
 ) character set utf8 collate utf8_general_ci;
+insert into user (id, username, password) values (1, 'admin', '$2a$10$MyZWWEEnrboyPB9PKDS9aeX88W.z27wGRj0LnNaqxOva7Y3pJRNyG'); -- admin/admin
 
 create table user_feed (
        id int not null auto_increment,

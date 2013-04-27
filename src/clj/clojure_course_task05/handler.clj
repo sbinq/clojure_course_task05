@@ -6,24 +6,48 @@
             [noir.util.middleware :as noir]
             [noir.session :as session]
             [ring.adapter.jetty :as jetty]
-            [clojure-course-task05.view :as view]))
+            [clojure-course-task05.view :as view]
+            [clojure-course-task05.model :as model]
+            [cemerick.friend :as friend]
+            [cemerick.friend [workflows :as workflows] [credentials :as creds]]))
 
-;;; TODO: implement unread articles summary page - all feeds
-;;; TODO: implement feed-specific page with "Unsubscribe" and "Mark All Read" actions; optionally "N New Items" / "All Items" switch (+ pagination?)
-;;; TODO: implement new users registration; optionally - with many auth backends; optionally - admin user with misc administrative UI;
 
-
-(def ^:dynamic *user* {:id 1})
+(defmacro with-user-arg [req form]
+  (let [form-with-user-arg (cons (first form)
+                                 (cons `(model/find-user-by-username (:current (friend/identity ~req)))
+                                       (next form)))]
+    `(friend/authenticated
+      ~form-with-user-arg)))
 
 (defroutes app-routes
-  (GET "/" [] (resp/redirect "/feeds"))
-  (GET "/feeds" [] (view/show-feeds-page *user*))
-  (GET "/user-feeds-data" [] (view/user-feeds-data *user*))
-  (POST "/subscribe-to-feed" [url] (view/subscribe-to-feed *user* url))
-  (GET "/user-feed-articles" [feed_id] (view/user-feed-articles *user* (Integer/parseInt feed_id))))
+  (GET "/login" []
+       (view/show-login-page))
+  (friend/logout (ANY "/logout" request
+                      (ring.util.response/redirect "/login")))
+  
+  (GET "/" []
+       (resp/redirect "/feeds"))  
+  (GET "/feeds" req
+       (with-user-arg req
+         (view/show-feeds-page)))
+  (GET "/user-feeds-data" req
+       (with-user-arg req
+         (view/user-feeds-data)))
+  (POST "/subscribe-to-feed" req
+        (with-user-arg req
+          (view/subscribe-to-feed (get-in req [:params :url]))))
+  (GET "/user-feed-articles" req
+       (with-user-arg req
+         (view/user-feed-articles (Integer/parseInt (get-in req [:params :feed_id]))))))
 
 
-(def app (-> [(handler/site #'app-routes)]
+(def app (-> #'app-routes
+             (friend/authenticate {:credential-fn (fn [params]
+                                                    (model/create-user-if-not-exists params) ; simplifying registration impl a bit
+                                                    (creds/bcrypt-credential-fn model/find-user-by-username params))
+                                   :workflows [(workflows/interactive-form)]})
+             handler/site
+             vector
              noir/app-handler
              noir/war-handler))
 

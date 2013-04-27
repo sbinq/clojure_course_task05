@@ -61,8 +61,6 @@
 
 ;;; Feed articles
 
-(def boo (atom []))
-
 (em/defsnippet articles-list "html/fragments.html" ".feed-articles" [articles]
   [".feed-article-row"] (em/clone-for [a articles]
                                       [".article-title"] (em/html-content (or (:title a) "(title unknown)"))

@@ -17,6 +17,11 @@
     margin-left: 10px;
 }
 
+.logout-link {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
 /* Prompt dialog styles */
 
 .modal-dialog-bg {

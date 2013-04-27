@@ -1,6 +1,7 @@
 (ns clojure-course-task05.model
   (:require [korma [db :refer :all] [core :refer :all]]
-            [feedparser-clj.core :as parser]))
+            [feedparser-clj.core :as parser]
+            [cemerick.friend [credentials :as creds]]))
 
 
 (defdb db (mysql {:user "root" :subname "//localhost:3306/boo?useUnicode=true&characterEncoding=UTF-8"}))
@@ -24,6 +25,15 @@
   (belongs-to article))
 
 
+
+;;; user registration
+
+(defn find-user-by-username [username]
+  (first (select user (where (= :username username)))))
+
+(defn create-user-if-not-exists [{:keys [username password]}]
+  (when-not (find-user-by-username username)
+    (insert user (values {:username username :password (creds/hash-bcrypt password)}))))
 
 ;;; feeds
 
