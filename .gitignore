@@ -1,2 +1,6 @@
 .lein*
 target/
+.repl
+repl
+out
+.clojurescript-output-test

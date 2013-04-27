@@ -12,9 +12,14 @@
 ;;; TODO: implement feed-specific page with "Unsubscribe" and "Mark All Read" actions; optionally "N New Items" / "All Items" switch (+ pagination?)
 ;;; TODO: implement new users registration; optionally - with many auth backends; optionally - admin user with misc administrative UI;
 
+
+(def ^:dynamic *user* {:id 1})
+
 (defroutes app-routes
   (GET "/" [] (resp/redirect "/feeds"))
-  (GET "/feeds" [] (view/show-feeds)))
+  (GET "/feeds" [] (view/show-feeds-page *user*))
+  (GET "/user-feeds-data" [] (view/user-feeds-data *user*)))
+
 
 (def app (-> [(handler/site #'app-routes)]
              noir/app-handler

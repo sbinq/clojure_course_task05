@@ -118,6 +118,9 @@
 
 ;;; higher level user actions
 
+(defn list-user-feeds [u]
+  (select feed (join [user-feed :uf] (= :feed.id :uf.feed_id)) (where (= :uf.user_id (:id u)))))
+
 (defn list-new-user-articles
   ([u] (list-new-user-articles u 1000))
   ([u max]

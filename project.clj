@@ -7,8 +7,33 @@
                  [mysql/mysql-connector-java "5.1.24"]
                  [korma "0.3.0-RC5"]
                  [lib-noir "0.4.9"]
-                 [org.clojars.scsibug/feedparser-clj "0.4.0"]]
-  :plugins [[lein-ring "0.8.2"]]
+                 [org.clojars.scsibug/feedparser-clj "0.4.0"]
+                 [enfocus "1.0.1"]
+                 [jayq "2.3.0"]
+                 [com.cemerick/piggieback "0.0.4"]]
+  :plugins [[lein-ring "0.8.3"] [lein-cljsbuild "0.3.0"]]
   :ring {:handler clojure-course-task05.handler/app}
   :profiles
-  {:dev {:dependencies [[ring-mock "0.1.3"]]}})
+  {:dev {:dependencies [[ring-mock "0.1.3"]]}}
+  
+  :aot []
+  :source-paths ["src/clj" "src/cljs"]
+  :repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
+
+  :cljsbuild
+  {:builds
+   [
+    {:source-paths ["src/cljs"],
+     :id "main",
+     :compiler
+     {:pretty-print true,
+      :output-to "resources/public/assets/js/main.js",
+      :warnings true,
+      :externs ["externs/jquery-1.9.js"],
+      ;; :optimizations :advanced,
+      :optimizations :whitespace,
+      :print-input-delimiter false}}
+    ]
+   }
+  
+  :war {:name "reader.war"})
