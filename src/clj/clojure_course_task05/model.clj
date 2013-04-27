@@ -147,10 +147,13 @@
   ([] (trigger-feeds-updates (select feed)))
   ([feeds] (send-off feed-update-agent #(fetch-feeds-updates %2) feeds)))
 
+;;; TODO: add 'cron' job to periodically update feeds articles
+
 (defn subscribe-user-to-feed [u from-url]
   (let [id (add-feed-if-not-exists! from-url)
         f (first (select feed (where {:id id})))]
     (add-user-feed-if-not-exists! u f)
-    (trigger-feeds-updates [f])))
+    (fetch-feeds-updates [f])           ; TODO: should this be only for new feeds - not yet in system?
+    f))
 
 

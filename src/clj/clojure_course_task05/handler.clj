@@ -18,7 +18,8 @@
 (defroutes app-routes
   (GET "/" [] (resp/redirect "/feeds"))
   (GET "/feeds" [] (view/show-feeds-page *user*))
-  (GET "/user-feeds-data" [] (view/user-feeds-data *user*)))
+  (GET "/user-feeds-data" [] (view/user-feeds-data *user*))
+  (POST "/subscribe-to-feed" [url] (view/subscribe-to-feed *user* url)))
 
 
 (def app (-> [(handler/site #'app-routes)]

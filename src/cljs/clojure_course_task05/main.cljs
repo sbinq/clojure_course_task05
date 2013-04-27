@@ -22,8 +22,9 @@
                                                identity)
                                              #(em/at % ["a"] (em/content (:title f)))
                                              (em/listen :click (fn [e] (on-feed-menu-item-click f e)))))
-  [".no-items-message"] (em/filter #(not (empty? feeds))
-                                   (em/remove-node))
+  [".no-items-message"] (if (not (empty? feeds))
+                          (em/remove-node)
+                          identity)
   ["ul"] (em/unwrap))
 
 (em/defaction update-feed-list-items [feeds & [selected-feed]]
@@ -39,16 +40,29 @@
   (let [update-buttons-css (fn [prompt]
                              (em/at (.getButtonElement prompt)
                                     ["button"] (em/add-class "btn" "btn-small")))]
-   (doto (goog.ui.Prompt. "Please Provide Feed URL" "" callback)
-     (.setContent "")
-     update-buttons-css
-     (.setVisible true))))
+    (doto (goog.ui.Prompt. "Please Provide Feed URL" "" callback)
+      (.setContent "")
+      update-buttons-css
+      (.setVisible true))))
 
+;;; TODO: move to utils
+(defn log [& args]
+  (.call (.-log js/console) js/console (apply str args)))
 
+(defn subscribed-to-new-feed [feeds new-feed]
+  (log "all feeds are" feeds)
+  (update-feed-list-items feeds new-feed))
 
+(defn maybe-subscribed-to-new-feed [{:keys [error feeds new-feed] :as response}]
+  (log "response is " response)
+  (log "feeds are " feeds)
+  (log "new-feed is " new-feed)
+  (if (empty? error)
+    (subscribed-to-new-feed feeds new-feed)
+    (js/alert error)))
 
 (defn try-subscribe-to-feed [feed-url]
-  (.log js/console "Trying" feed-url))
+  (util/post-data "/subscribe-to-feed" maybe-subscribed-to-new-feed {:url feed-url}))
 
 
 (defn on-subscribe-click []
@@ -58,6 +72,7 @@
 
 (em/defaction show-user-articles-summary []
   )
+
 
 (em/defaction setup-listeners []
   [".subscribe-to-feed-button"] (em/listen :click on-subscribe-click))
