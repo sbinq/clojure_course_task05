@@ -33,12 +33,12 @@
   (GET "/user-feeds-data" req
        (with-user-arg req
          (view/user-feeds-data)))
-  (POST "/subscribe-to-feed" req
+  (POST "/subscribe-to-feed" [url :as req]
         (with-user-arg req
-          (view/subscribe-to-feed (get-in req [:params :url]))))
-  (GET "/user-feed-articles" req
+          (view/subscribe-to-feed url)))
+  (GET "/user-feed-articles" [feed_id :as req]
        (with-user-arg req
-         (view/user-feed-articles (Integer/parseInt (get-in req [:params :feed_id]))))))
+         (view/user-feed-articles (Integer/parseInt feed_id)))))
 
 
 (def app (-> #'app-routes
