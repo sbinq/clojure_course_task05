@@ -70,11 +70,13 @@
                                       [".article-link"] (em/set-attr :href (:link a))
                                       [".article-published-date"] (em/content (format-date (:published_date a)))))
 
-(em/defaction update-feed-articles [{:keys [articles] :as response}]
+(em/defaction update-feed-articles [f {:keys [articles] :as response}]
+  [".feed-header .feed-title"] (em/content (:title f))
+  [".feed-header .feed-link"] (em/set-attr :href (:link f))
   [".feed-articles"] (em/substitute (articles-list articles)))
 
 (defn try-update-feed-articles [f]
-  (util/get-data (str "/user-feed-articles?feed_id=" (:id f)) update-feed-articles))
+  (util/get-data (str "/user-feed-articles?feed_id=" (:id f)) #(update-feed-articles f %)))
 
 ;;; Feeds subscription
 
