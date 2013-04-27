@@ -43,6 +43,8 @@
     (:id f)
     (first (vals (insert feed (values [(fetch-feed url)]))))))
 
+(defn read-feed-by-id [feed-id]
+  (first (select feed (where {:id feed-id}))))
 
 ;;; articles
 
@@ -121,20 +123,29 @@
 (defn list-user-feeds [u]
   (select feed (join [user-feed :uf] (= :feed.id :uf.feed_id)) (where (= :uf.user_id (:id u)))))
 
-(defn list-new-user-articles
-  ([u] (list-new-user-articles u 1000))
-  ([u max]
-     (->> (select article
-                  (fields :* :uas.status)
-                  (join :left [user-article-status :uas] (= :article.id :uas.article_id))
-                  (where (and (in :article.feed_id (subselect user-feed
-                                                              (fields :feed_id)
-                                                              (where (= :user_id (:id u)))))
-                              (or (= :uas.status nil)
-                                  (= :uas.status "unread"))))
-                  (order :article.published_date :desc)
-                  (limit max))
-          (map #(assoc % :status (or (:status %) "unread"))))))
+(defn- make-user-articles-customized-query [u max customize-fn]
+  (customize-fn (-> (select* article)
+                    (fields :* :uas.status)
+                    (join :left [user-article-status :uas] (and (= :article.id :uas.article_id)
+                                                                (= :uas.user_id (:id u))))
+                    (order :article.published_date :desc)
+                    (limit max))))
+
+(defn- adjust-articles-status-value-when-empty [articles]
+  (map #(assoc % :status (or (:status %) "unread")) articles))
+
+(defn- list-user-articles-with-customized-query [u max customize-fn]
+  (-> (make-user-articles-customized-query u max customize-fn)
+      select
+      adjust-articles-status-value-when-empty))
+
+(defn list-new-user-articles-by-feed
+  ([u f] (list-new-user-articles-by-feed u f 1000))
+  ([u f max]
+     (list-user-articles-with-customized-query u max
+       #(where % (and (or (= :uas.status nil)
+                          (= :uas.status "unread"))
+                      (= :article.feed_id (:id f)))))))
 
 
 (defn fetch-feeds-updates [feeds]

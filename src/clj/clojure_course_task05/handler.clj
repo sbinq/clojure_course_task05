@@ -19,7 +19,8 @@
   (GET "/" [] (resp/redirect "/feeds"))
   (GET "/feeds" [] (view/show-feeds-page *user*))
   (GET "/user-feeds-data" [] (view/user-feeds-data *user*))
-  (POST "/subscribe-to-feed" [url] (view/subscribe-to-feed *user* url)))
+  (POST "/subscribe-to-feed" [url] (view/subscribe-to-feed *user* url))
+  (GET "/user-feed-articles" [feed_id] (view/user-feed-articles *user* (Integer/parseInt feed_id))))
 
 
 (def app (-> [(handler/site #'app-routes)]

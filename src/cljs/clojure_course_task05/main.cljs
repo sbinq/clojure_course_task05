@@ -3,20 +3,44 @@
             [enfocus.core :as ef]
             [goog.events :as gevents]
             [helpers.util :as util]
-            goog.ui.Prompt)
+            goog.ui.Prompt
+            goog.i18n.DateTimeFormat)
   (:require-macros [enfocus.macros :as em])
   (:use [jayq.core :only [$ css inner]]))
 
 
 (repl/connect "http://localhost:9000/repl")
 
+;;; TODO: move to utils
+(defn log [& args]
+  (.call (.-log js/console) js/console (apply str args)))
+
+(defn format-date [jsdate]
+  (.format (goog.i18n.DateTimeFormat. "yyyy/MM/dd, HH:mm") jsdate))
+
+;;; Feeds list
+
+(declare feed-list-item-ui-id)
+(declare try-update-feed-articles)
+
+(em/defaction mark-feed-list-items-non-active []
+  [".feed-list li"] (em/remove-class "active"))
+
+(defn mark-feed-list-item-active [f]
+  (mark-feed-list-items-non-active)
+  (em/at js/document
+         [(str "#" (feed-list-item-ui-id f))] (em/add-class "active")))
 
 (defn on-feed-menu-item-click [f e]
-  (.log js/console "on-feed-menu-item-click" f e))
+  (try-update-feed-articles f)
+  (mark-feed-list-item-active f))
+
+(defn feed-list-item-ui-id [f]
+  (str "feed-" (:id f)))
 
 (em/defsnippet feed-list-items "html/fragments.html" ["#feed-list-items-template"] [feeds & [selected-feed]]
   [".feed-menu-item"] (em/clone-for [f feeds]
-                                    (em/do-> (em/set-attr :id (str "feed-" (:id f)))
+                                    (em/do-> (em/set-attr :id (feed-list-item-ui-id f))
                                              (if (= (:id f) (:id selected-feed))
                                                (em/add-class "active")
                                                identity)
@@ -32,9 +56,27 @@
   [".subscriptions-list-header"] (em/after (feed-list-items feeds selected-feed)))
 
 (defn try-update-feed-list-items []
-  (.log js/console "inside try-update-feed-list-items")
   (util/get-data "/user-feeds-data" update-feed-list-items))
 
+
+;;; Feed articles
+
+(def boo (atom []))
+
+(em/defsnippet articles-list "html/fragments.html" ".feed-articles" [articles]
+  [".feed-article-row"] (em/clone-for [a articles]
+                                      [".article-title"] (em/html-content (or (:title a) "(title unknown)"))
+                                      [".article-description"] (em/html-content (:description_value a))
+                                      [".article-link"] (em/set-attr :href (:link a))
+                                      [".article-published-date"] (em/content (format-date (:published_date a)))))
+
+(em/defaction update-feed-articles [{:keys [articles] :as response}]
+  [".feed-articles"] (em/substitute (articles-list articles)))
+
+(defn try-update-feed-articles [f]
+  (util/get-data (str "/user-feed-articles?feed_id=" (:id f)) update-feed-articles))
+
+;;; Feeds subscription
 
 (defn prompt-feed-url [callback]
   (let [update-buttons-css (fn [prompt]
@@ -45,18 +87,11 @@
       update-buttons-css
       (.setVisible true))))
 
-;;; TODO: move to utils
-(defn log [& args]
-  (.call (.-log js/console) js/console (apply str args)))
 
 (defn subscribed-to-new-feed [feeds new-feed]
-  (log "all feeds are" feeds)
   (update-feed-list-items feeds new-feed))
 
 (defn maybe-subscribed-to-new-feed [{:keys [error feeds new-feed] :as response}]
-  (log "response is " response)
-  (log "feeds are " feeds)
-  (log "new-feed is " new-feed)
   (if (empty? error)
     (subscribed-to-new-feed feeds new-feed)
     (js/alert error)))
@@ -70,9 +105,15 @@
                       (when-not (empty? trimmed) (try-subscribe-to-feed trimmed)))))
 
 
+
+;;; Unread articles summary
+
 (em/defaction show-user-articles-summary []
   )
 
+
+
+;;; Page initializion
 
 (em/defaction setup-listeners []
   [".subscribe-to-feed-button"] (em/listen :click on-subscribe-click))

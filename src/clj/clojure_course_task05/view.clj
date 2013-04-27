@@ -20,3 +20,6 @@
      (catch Exception e
        ;; TODO: logging?
        {:error (str "Error: " (.getMessage e) " of " (.getClass e))}))))
+
+(defn user-feed-articles [u feed-id]
+  (pr-str {:articles (model/list-new-user-articles-by-feed u (model/read-feed-by-id feed-id))}))
