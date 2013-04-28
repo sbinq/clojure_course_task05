@@ -4,7 +4,18 @@
             [cemerick.friend [credentials :as creds]]))
 
 
-(defdb db (mysql {:user "root" :subname "//localhost:3306/boo?useUnicode=true&characterEncoding=UTF-8"}))
+;;; (defdb db (mysql {:user "root" :subname "//localhost:3306/boo?useUnicode=true&characterEncoding=UTF-8"}))
+
+(def env (into {} (System/getenv)))
+(def dbhost (get env "OPENSHIFT_MYSQL_DB_HOST"))
+(def dbport (get env "OPENSHIFT_MYSQL_DB_PORT"))
+(def default-conn {:classname "com.mysql.jdbc.Driver"
+                             :subprotocol "mysql"
+                             :user "adminhXiXCUn"
+                             :password "kVuhlpeM6qJH"
+                             :subname (str "//" dbhost ":" dbport "/readertask05?useUnicode=true&characterEncoding=utf8")
+                             :delimiters "`"})
+(defdb db default-conn)
 
 
 (defentity feed)
@@ -116,6 +127,9 @@
 
 ;;; user articles association
 
+(defn- adjust-articles-status-value-when-empty [articles]
+  (map #(assoc % :status (or (:status %) "unread")) articles))
+
 (def insert-or-update-user-article-status
   (partial insert-or-update user-article-status [:user_id :article_id]))
 
@@ -143,9 +157,6 @@
                                                                 (= :uas.user_id (:id u))))
                     (order :article.published_date :desc)
                     (limit max))))
-
-(defn- adjust-articles-status-value-when-empty [articles]
-  (map #(assoc % :status (or (:status %) "unread")) articles))
 
 (defn- list-user-articles-with-customized-query [u max customize-fn]
   (-> (make-user-articles-customized-query u max customize-fn)

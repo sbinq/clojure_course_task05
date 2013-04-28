@@ -1,6 +1,6 @@
-(defproject myblog "0.1.0-SNAPSHOT"
+(defproject readertask05 "0.1.0-SNAPSHOT"
   :description "Yet another google reader alternative which is not even planned to be finished"
-  :url "https://github.com/sbinq/clojure_course_task04"
+  :url "https://github.com/sbinq/clojure_course_task05"
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [compojure "1.1.5"]
                  [me.raynes/laser "1.1.1"]

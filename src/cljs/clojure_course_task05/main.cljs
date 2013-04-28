@@ -9,7 +9,7 @@
   (:use [jayq.core :only [$ css inner]]))
 
 
-(repl/connect "http://localhost:9000/repl")
+;(repl/connect "http://localhost:9000/repl")
 
 ;;; TODO: move to utils
 (defn log [& args]
