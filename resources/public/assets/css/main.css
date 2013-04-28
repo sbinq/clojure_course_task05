@@ -22,6 +22,14 @@
     margin-right: 20px;
 }
 
+.feed-header {
+    margin-top: 10px;
+}
+
+.article-header {
+    margin-top: 30px;
+}
+
 /* Prompt dialog styles */
 
 .modal-dialog-bg {

@@ -41359,8 +41359,8 @@ clojure_course_task05.main.log = function() {
     return log__delegate.call(this, args)
   };
   log.cljs$lang$maxFixedArity = 0;
-  log.cljs$lang$applyTo = function(arglist__13445) {
-    var args = cljs.core.seq(arglist__13445);
+  log.cljs$lang$applyTo = function(arglist__13917) {
+    var args = cljs.core.seq(arglist__13917);
     return log__delegate(args)
   };
   log.cljs$lang$arity$variadic = log__delegate;
@@ -41387,33 +41387,33 @@ clojure_course_task05.main.feed_list_item_ui_id = function feed_list_item_ui_id(
 };
 enfocus.core.load_remote_dom.call(null, "html/fragments.html", "feed-list-itemshtml/fragments.html");
 clojure_course_task05.main.feed_list_items = function() {
-  var feed_list_items__delegate = function(feeds, p__13449) {
-    var vec__13453 = p__13449;
-    var selected_feed = cljs.core.nth.call(null, vec__13453, 0, null);
-    var vec__13454 = function() {
+  var feed_list_items__delegate = function(feeds, p__13921) {
+    var vec__13925 = p__13921;
+    var selected_feed = cljs.core.nth.call(null, vec__13925, 0, null);
+    var vec__13926 = function() {
       return enfocus.core.get_cached_snippet.call(null, "feed-list-itemshtml/fragments.html", cljs.core.PersistentVector.fromArray(["#feed-list-items-template"], true))
     }.call(null);
-    var id_sym13447 = cljs.core.nth.call(null, vec__13454, 0, null);
-    var pnod13448 = cljs.core.nth.call(null, vec__13454, 1, null);
-    var pnod13448__$1 = enfocus.core.create_hidden_dom.call(null, pnod13448);
-    enfocus.core.i_at.call(null, id_sym13447, pnod13448__$1, cljs.core.PersistentVector.fromArray([".feed-menu-item"], true), enfocus.core.chainable_standard.call(null, function(pnod__3180__auto__) {
+    var id_sym13919 = cljs.core.nth.call(null, vec__13926, 0, null);
+    var pnod13920 = cljs.core.nth.call(null, vec__13926, 1, null);
+    var pnod13920__$1 = enfocus.core.create_hidden_dom.call(null, pnod13920);
+    enfocus.core.i_at.call(null, id_sym13919, pnod13920__$1, cljs.core.PersistentVector.fromArray([".feed-menu-item"], true), enfocus.core.chainable_standard.call(null, function(pnod__3180__auto__) {
       var div__3181__auto__ = enfocus.core.create_hidden_dom.call(null, document.createDocumentFragment());
-      var G__13455_13456 = cljs.core.seq.call(null, feeds);
+      var G__13927_13928 = cljs.core.seq.call(null, feeds);
       while(true) {
-        if(G__13455_13456) {
-          var f_13457 = cljs.core.first.call(null, G__13455_13456);
+        if(G__13927_13928) {
+          var f_13929 = cljs.core.first.call(null, G__13927_13928);
           enfocus.core.at.call(null, div__3181__auto__, enfocus.core.en_append.call(null, pnod__3180__auto__.cloneNode(true)));
-          enfocus.core.at.call(null, goog.dom.getLastElementChild(div__3181__auto__), enfocus.core.en_do__GT_.call(null, enfocus.core.en_set_attr.call(null, "\ufdd0:id", clojure_course_task05.main.feed_list_item_ui_id.call(null, f_13457)), cljs.core._EQ_.call(null, (new cljs.core.Keyword("\ufdd0:id")).call(null, f_13457), (new cljs.core.Keyword("\ufdd0:id")).call(null, selected_feed)) ? enfocus.core.en_add_class.call(null, "active") : cljs.core.identity, function(G__13455_13456, f_13457) {
-            return function(p1__13446_SHARP_) {
-              return enfocus.core.at.call(null, p1__13446_SHARP_, cljs.core.PersistentVector.fromArray(["a"], true), enfocus.core.en_content.call(null, (new cljs.core.Keyword("\ufdd0:title")).call(null, f_13457)))
+          enfocus.core.at.call(null, goog.dom.getLastElementChild(div__3181__auto__), enfocus.core.en_do__GT_.call(null, enfocus.core.en_set_attr.call(null, "\ufdd0:id", clojure_course_task05.main.feed_list_item_ui_id.call(null, f_13929)), cljs.core._EQ_.call(null, (new cljs.core.Keyword("\ufdd0:id")).call(null, f_13929), (new cljs.core.Keyword("\ufdd0:id")).call(null, selected_feed)) ? enfocus.core.en_add_class.call(null, "active") : cljs.core.identity, function(G__13927_13928, f_13929) {
+            return function(p1__13918_SHARP_) {
+              return enfocus.core.at.call(null, p1__13918_SHARP_, cljs.core.PersistentVector.fromArray(["a"], true), enfocus.core.en_content.call(null, (new cljs.core.Keyword("\ufdd0:title")).call(null, f_13929)))
             }
-          }(G__13455_13456, f_13457), enfocus.core.en_listen.call(null, "\ufdd0:click", function(G__13455_13456, f_13457) {
+          }(G__13927_13928, f_13929), enfocus.core.en_listen.call(null, "\ufdd0:click", function(G__13927_13928, f_13929) {
             return function(e) {
-              return clojure_course_task05.main.on_feed_menu_item_click.call(null, f_13457, e)
+              return clojure_course_task05.main.on_feed_menu_item_click.call(null, f_13929, e)
             }
-          }(G__13455_13456, f_13457))));
-          var G__13458 = cljs.core.next.call(null, G__13455_13456);
-          G__13455_13456 = G__13458;
+          }(G__13927_13928, f_13929))));
+          var G__13930 = cljs.core.next.call(null, G__13927_13928);
+          G__13927_13928 = G__13930;
           continue
         }else {
         }
@@ -41422,43 +41422,43 @@ clojure_course_task05.main.feed_list_items = function() {
       enfocus.core.log_debug.call(null, div__3181__auto__);
       return enfocus.core.at.call(null, pnod__3180__auto__, enfocus.core.en_do__GT_.call(null, enfocus.core.en_after.call(null, enfocus.core.remove_node_return_child.call(null, div__3181__auto__)), enfocus.core.en_remove_node.call(null)))
     }), cljs.core.PersistentVector.fromArray([".no-items-message"], true), !cljs.core.empty_QMARK_.call(null, feeds) ? enfocus.core.en_remove_node.call(null) : cljs.core.identity, cljs.core.PersistentVector.fromArray(["ul"], true), enfocus.core.en_unwrap.call(null));
-    enfocus.core.reset_ids.call(null, id_sym13447, pnod13448__$1);
-    return enfocus.core.remove_node_return_child.call(null, pnod13448__$1)
+    enfocus.core.reset_ids.call(null, id_sym13919, pnod13920__$1);
+    return enfocus.core.remove_node_return_child.call(null, pnod13920__$1)
   };
   var feed_list_items = function(feeds, var_args) {
-    var p__13449 = null;
+    var p__13921 = null;
     if(goog.isDef(var_args)) {
-      p__13449 = cljs.core.array_seq(Array.prototype.slice.call(arguments, 1), 0)
+      p__13921 = cljs.core.array_seq(Array.prototype.slice.call(arguments, 1), 0)
     }
-    return feed_list_items__delegate.call(this, feeds, p__13449)
+    return feed_list_items__delegate.call(this, feeds, p__13921)
   };
   feed_list_items.cljs$lang$maxFixedArity = 1;
-  feed_list_items.cljs$lang$applyTo = function(arglist__13459) {
-    var feeds = cljs.core.first(arglist__13459);
-    var p__13449 = cljs.core.rest(arglist__13459);
-    return feed_list_items__delegate(feeds, p__13449)
+  feed_list_items.cljs$lang$applyTo = function(arglist__13931) {
+    var feeds = cljs.core.first(arglist__13931);
+    var p__13921 = cljs.core.rest(arglist__13931);
+    return feed_list_items__delegate(feeds, p__13921)
   };
   feed_list_items.cljs$lang$arity$variadic = feed_list_items__delegate;
   return feed_list_items
 }();
 clojure_course_task05.main.update_feed_list_items = function() {
-  var update_feed_list_items__delegate = function(feeds, p__13460) {
-    var vec__13462 = p__13460;
-    var selected_feed = cljs.core.nth.call(null, vec__13462, 0, null);
+  var update_feed_list_items__delegate = function(feeds, p__13932) {
+    var vec__13934 = p__13932;
+    var selected_feed = cljs.core.nth.call(null, vec__13934, 0, null);
     return enfocus.core.at.call(null, document, cljs.core.PersistentVector.fromArray([".feed-menu-item, .no-items-message"], true), enfocus.core.en_remove_node.call(null), cljs.core.PersistentVector.fromArray([".subscriptions-list-header"], true), enfocus.core.en_after.call(null, clojure_course_task05.main.feed_list_items.call(null, feeds, selected_feed)))
   };
   var update_feed_list_items = function(feeds, var_args) {
-    var p__13460 = null;
+    var p__13932 = null;
     if(goog.isDef(var_args)) {
-      p__13460 = cljs.core.array_seq(Array.prototype.slice.call(arguments, 1), 0)
+      p__13932 = cljs.core.array_seq(Array.prototype.slice.call(arguments, 1), 0)
     }
-    return update_feed_list_items__delegate.call(this, feeds, p__13460)
+    return update_feed_list_items__delegate.call(this, feeds, p__13932)
   };
   update_feed_list_items.cljs$lang$maxFixedArity = 1;
-  update_feed_list_items.cljs$lang$applyTo = function(arglist__13463) {
-    var feeds = cljs.core.first(arglist__13463);
-    var p__13460 = cljs.core.rest(arglist__13463);
-    return update_feed_list_items__delegate(feeds, p__13460)
+  update_feed_list_items.cljs$lang$applyTo = function(arglist__13935) {
+    var feeds = cljs.core.first(arglist__13935);
+    var p__13932 = cljs.core.rest(arglist__13935);
+    return update_feed_list_items__delegate(feeds, p__13932)
   };
   update_feed_list_items.cljs$lang$arity$variadic = update_feed_list_items__delegate;
   return update_feed_list_items
@@ -41469,10 +41469,10 @@ clojure_course_task05.main.try_update_feed_list_items = function try_update_feed
 clojure_course_task05.main.article_item_ui_id = function article_item_ui_id(a) {
   return[cljs.core.str("article-"), cljs.core.str((new cljs.core.Keyword("\ufdd0:id")).call(null, a))].join("")
 };
-clojure_course_task05.main.mark_article_read_status = function mark_article_read_status(p__13464) {
-  var map__13466 = p__13464;
-  var map__13466__$1 = cljs.core.seq_QMARK_.call(null, map__13466) ? cljs.core.apply.call(null, cljs.core.hash_map, map__13466) : map__13466;
-  var a = cljs.core._lookup.call(null, map__13466__$1, "\ufdd0:article", null);
+clojure_course_task05.main.mark_article_read_status = function mark_article_read_status(p__13936) {
+  var map__13938 = p__13936;
+  var map__13938__$1 = cljs.core.seq_QMARK_.call(null, map__13938) ? cljs.core.apply.call(null, cljs.core.hash_map, map__13938) : map__13938;
+  var a = cljs.core._lookup.call(null, map__13938__$1, "\ufdd0:article", null);
   return enfocus.core.at.call(null, document, cljs.core.PersistentVector.fromArray([[cljs.core.str("#"), cljs.core.str(clojure_course_task05.main.article_item_ui_id.call(null, a))].join("")], true), cljs.core._EQ_.call(null, (new cljs.core.Keyword("\ufdd0:status")).call(null, a), "read") ? enfocus.core.en_add_class.call(null, "muted") : enfocus.core.en_remove_class.call(null, "muted"), cljs.core.PersistentVector.fromArray([[cljs.core.str("#"), cljs.core.str(clojure_course_task05.main.article_item_ui_id.call(null, 
   a)), cljs.core.str(" .article-read-indicator")].join("")], true), cljs.core._EQ_.call(null, (new cljs.core.Keyword("\ufdd0:status")).call(null, a), "read") ? enfocus.core.en_remove_style.call(null, "\ufdd0:display") : enfocus.core.en_set_style.call(null, "\ufdd0:display", "none"))
 };
@@ -41481,42 +41481,42 @@ clojure_course_task05.main.try_mark_article_read_status = function try_mark_arti
 };
 enfocus.core.load_remote_dom.call(null, "html/fragments.html", "articles-listhtml/fragments.html");
 clojure_course_task05.main.articles_list = function articles_list(articles) {
-  var vec__13472 = function() {
+  var vec__13944 = function() {
     return enfocus.core.get_cached_snippet.call(null, "articles-listhtml/fragments.html", ".feed-articles")
   }.call(null);
-  var id_sym13468 = cljs.core.nth.call(null, vec__13472, 0, null);
-  var pnod13469 = cljs.core.nth.call(null, vec__13472, 1, null);
-  var pnod13469__$1 = enfocus.core.create_hidden_dom.call(null, pnod13469);
-  enfocus.core.i_at.call(null, id_sym13468, pnod13469__$1, cljs.core.PersistentVector.fromArray([".feed-article-row"], true), enfocus.core.chainable_standard.call(null, function(pnod__3180__auto__) {
+  var id_sym13940 = cljs.core.nth.call(null, vec__13944, 0, null);
+  var pnod13941 = cljs.core.nth.call(null, vec__13944, 1, null);
+  var pnod13941__$1 = enfocus.core.create_hidden_dom.call(null, pnod13941);
+  enfocus.core.i_at.call(null, id_sym13940, pnod13941__$1, cljs.core.PersistentVector.fromArray([".feed-article-row"], true), enfocus.core.chainable_standard.call(null, function(pnod__3180__auto__) {
     var div__3181__auto__ = enfocus.core.create_hidden_dom.call(null, document.createDocumentFragment());
-    var G__13473_13474 = cljs.core.seq.call(null, articles);
+    var G__13945_13946 = cljs.core.seq.call(null, articles);
     while(true) {
-      if(G__13473_13474) {
-        var a_13475 = cljs.core.first.call(null, G__13473_13474);
+      if(G__13945_13946) {
+        var a_13947 = cljs.core.first.call(null, G__13945_13946);
         enfocus.core.at.call(null, div__3181__auto__, enfocus.core.en_append.call(null, pnod__3180__auto__.cloneNode(true)));
-        enfocus.core.at.call(null, goog.dom.getLastElementChild(div__3181__auto__), enfocus.core.en_do__GT_.call(null, enfocus.core.en_set_attr.call(null, "\ufdd0:id", clojure_course_task05.main.article_item_ui_id.call(null, a_13475)), function(G__13473_13474, a_13475) {
-          return function(p1__13467_SHARP_) {
-            return enfocus.core.at.call(null, p1__13467_SHARP_, cljs.core.PersistentVector.fromArray([".article-title"], true), enfocus.core.en_html_content.call(null, function() {
-              var or__3943__auto__ = (new cljs.core.Keyword("\ufdd0:title")).call(null, a_13475);
+        enfocus.core.at.call(null, goog.dom.getLastElementChild(div__3181__auto__), enfocus.core.en_do__GT_.call(null, enfocus.core.en_set_attr.call(null, "\ufdd0:id", clojure_course_task05.main.article_item_ui_id.call(null, a_13947)), function(G__13945_13946, a_13947) {
+          return function(p1__13939_SHARP_) {
+            return enfocus.core.at.call(null, p1__13939_SHARP_, cljs.core.PersistentVector.fromArray([".article-title"], true), enfocus.core.en_html_content.call(null, function() {
+              var or__3943__auto__ = (new cljs.core.Keyword("\ufdd0:title")).call(null, a_13947);
               if(cljs.core.truth_(or__3943__auto__)) {
                 return or__3943__auto__
               }else {
                 return"(title unknown)"
               }
-            }()), cljs.core.PersistentVector.fromArray([".article-description"], true), enfocus.core.en_html_content.call(null, (new cljs.core.Keyword("\ufdd0:description_value")).call(null, a_13475)), cljs.core.PersistentVector.fromArray([".article-link"], true), enfocus.core.en_set_attr.call(null, "\ufdd0:href", (new cljs.core.Keyword("\ufdd0:link")).call(null, a_13475)), cljs.core.PersistentVector.fromArray([".article-published-date"], true), enfocus.core.en_content.call(null, clojure_course_task05.main.format_date.call(null, 
-            (new cljs.core.Keyword("\ufdd0:published_date")).call(null, a_13475))), cljs.core.PersistentVector.fromArray([".mark-article-read"], true), enfocus.core.en_listen.call(null, "\ufdd0:click", function(G__13473_13474, a_13475) {
+            }()), cljs.core.PersistentVector.fromArray([".article-description"], true), enfocus.core.en_html_content.call(null, (new cljs.core.Keyword("\ufdd0:description_value")).call(null, a_13947)), cljs.core.PersistentVector.fromArray([".article-link"], true), enfocus.core.en_set_attr.call(null, "\ufdd0:href", (new cljs.core.Keyword("\ufdd0:link")).call(null, a_13947)), cljs.core.PersistentVector.fromArray([".article-published-date"], true), enfocus.core.en_content.call(null, clojure_course_task05.main.format_date.call(null, 
+            (new cljs.core.Keyword("\ufdd0:published_date")).call(null, a_13947))), cljs.core.PersistentVector.fromArray([".mark-article-read"], true), enfocus.core.en_listen.call(null, "\ufdd0:click", function(G__13945_13946, a_13947) {
               return function(_) {
-                return clojure_course_task05.main.try_mark_article_read_status.call(null, a_13475, "read")
+                return clojure_course_task05.main.try_mark_article_read_status.call(null, a_13947, "read")
               }
-            }(G__13473_13474, a_13475)), cljs.core.PersistentVector.fromArray([".mark-article-unread"], true), enfocus.core.en_listen.call(null, "\ufdd0:click", function(G__13473_13474, a_13475) {
+            }(G__13945_13946, a_13947)), cljs.core.PersistentVector.fromArray([".mark-article-unread"], true), enfocus.core.en_listen.call(null, "\ufdd0:click", function(G__13945_13946, a_13947) {
               return function(_) {
-                return clojure_course_task05.main.try_mark_article_read_status.call(null, a_13475, "unread")
+                return clojure_course_task05.main.try_mark_article_read_status.call(null, a_13947, "unread")
               }
-            }(G__13473_13474, a_13475)))
+            }(G__13945_13946, a_13947)))
           }
-        }(G__13473_13474, a_13475)));
-        var G__13476 = cljs.core.next.call(null, G__13473_13474);
-        G__13473_13474 = G__13476;
+        }(G__13945_13946, a_13947)));
+        var G__13948 = cljs.core.next.call(null, G__13945_13946);
+        G__13945_13946 = G__13948;
         continue
       }else {
       }
@@ -41525,43 +41525,43 @@ clojure_course_task05.main.articles_list = function articles_list(articles) {
     enfocus.core.log_debug.call(null, div__3181__auto__);
     return enfocus.core.at.call(null, pnod__3180__auto__, enfocus.core.en_do__GT_.call(null, enfocus.core.en_after.call(null, enfocus.core.remove_node_return_child.call(null, div__3181__auto__)), enfocus.core.en_remove_node.call(null)))
   }));
-  enfocus.core.reset_ids.call(null, id_sym13468, pnod13469__$1);
-  return enfocus.core.remove_node_return_child.call(null, pnod13469__$1)
+  enfocus.core.reset_ids.call(null, id_sym13940, pnod13941__$1);
+  return enfocus.core.remove_node_return_child.call(null, pnod13941__$1)
 };
-clojure_course_task05.main.update_feed_articles = function update_feed_articles(f, p__13478) {
-  var map__13480 = p__13478;
-  var map__13480__$1 = cljs.core.seq_QMARK_.call(null, map__13480) ? cljs.core.apply.call(null, cljs.core.hash_map, map__13480) : map__13480;
-  var response = map__13480__$1;
-  var articles = cljs.core._lookup.call(null, map__13480__$1, "\ufdd0:articles", null);
+clojure_course_task05.main.update_feed_articles = function update_feed_articles(f, p__13950) {
+  var map__13952 = p__13950;
+  var map__13952__$1 = cljs.core.seq_QMARK_.call(null, map__13952) ? cljs.core.apply.call(null, cljs.core.hash_map, map__13952) : map__13952;
+  var response = map__13952__$1;
+  var articles = cljs.core._lookup.call(null, map__13952__$1, "\ufdd0:articles", null);
   return enfocus.core.at.call(null, document, cljs.core.PersistentVector.fromArray([".feed-header .feed-title"], true), enfocus.core.en_content.call(null, (new cljs.core.Keyword("\ufdd0:title")).call(null, f)), cljs.core.PersistentVector.fromArray([".feed-header .feed-link"], true), enfocus.core.en_set_attr.call(null, "\ufdd0:href", (new cljs.core.Keyword("\ufdd0:link")).call(null, f)), cljs.core.PersistentVector.fromArray([".feed-articles"], true), enfocus.core.en_substitute.call(null, clojure_course_task05.main.articles_list.call(null, 
   articles)))
 };
 clojure_course_task05.main.try_update_feed_articles = function try_update_feed_articles(f) {
-  return helpers.util.get_data.call(null, [cljs.core.str("/user-feed-articles?feed_id="), cljs.core.str((new cljs.core.Keyword("\ufdd0:id")).call(null, f))].join(""), function(p1__13477_SHARP_) {
-    return clojure_course_task05.main.update_feed_articles.call(null, f, p1__13477_SHARP_)
+  return helpers.util.get_data.call(null, [cljs.core.str("/user-feed-articles?feed_id="), cljs.core.str((new cljs.core.Keyword("\ufdd0:id")).call(null, f))].join(""), function(p1__13949_SHARP_) {
+    return clojure_course_task05.main.update_feed_articles.call(null, f, p1__13949_SHARP_)
   })
 };
 clojure_course_task05.main.prompt_feed_url = function prompt_feed_url(callback) {
   var update_buttons_css = function(prompt) {
     return enfocus.core.at.call(null, prompt.getButtonElement(), cljs.core.PersistentVector.fromArray(["button"], true), enfocus.core.en_add_class.call(null, "btn", "btn-small"))
   };
-  var G__13482 = new goog.ui.Prompt("Please Provide Feed URL", "", callback);
-  G__13482.setContent("");
-  update_buttons_css.call(null, G__13482);
-  G__13482.setVisible(true);
-  return G__13482
+  var G__13954 = new goog.ui.Prompt("Please Provide Feed URL", "", callback);
+  G__13954.setContent("");
+  update_buttons_css.call(null, G__13954);
+  G__13954.setVisible(true);
+  return G__13954
 };
 clojure_course_task05.main.subscribed_to_new_feed = function subscribed_to_new_feed(feeds, new_feed) {
   clojure_course_task05.main.update_feed_list_items.call(null, feeds, new_feed);
   return clojure_course_task05.main.try_update_feed_articles.call(null, new_feed)
 };
-clojure_course_task05.main.maybe_subscribed_to_new_feed = function maybe_subscribed_to_new_feed(p__13483) {
-  var map__13485 = p__13483;
-  var map__13485__$1 = cljs.core.seq_QMARK_.call(null, map__13485) ? cljs.core.apply.call(null, cljs.core.hash_map, map__13485) : map__13485;
-  var response = map__13485__$1;
-  var new_feed = cljs.core._lookup.call(null, map__13485__$1, "\ufdd0:new-feed", null);
-  var feeds = cljs.core._lookup.call(null, map__13485__$1, "\ufdd0:feeds", null);
-  var error = cljs.core._lookup.call(null, map__13485__$1, "\ufdd0:error", null);
+clojure_course_task05.main.maybe_subscribed_to_new_feed = function maybe_subscribed_to_new_feed(p__13955) {
+  var map__13957 = p__13955;
+  var map__13957__$1 = cljs.core.seq_QMARK_.call(null, map__13957) ? cljs.core.apply.call(null, cljs.core.hash_map, map__13957) : map__13957;
+  var response = map__13957__$1;
+  var new_feed = cljs.core._lookup.call(null, map__13957__$1, "\ufdd0:new-feed", null);
+  var feeds = cljs.core._lookup.call(null, map__13957__$1, "\ufdd0:feeds", null);
+  var error = cljs.core._lookup.call(null, map__13957__$1, "\ufdd0:error", null);
   if(cljs.core.empty_QMARK_.call(null, error)) {
     return clojure_course_task05.main.subscribed_to_new_feed.call(null, feeds, new_feed)
   }else {
@@ -41572,11 +41572,11 @@ clojure_course_task05.main.try_subscribe_to_feed = function try_subscribe_to_fee
   return helpers.util.post_data.call(null, "/subscribe-to-feed", clojure_course_task05.main.maybe_subscribed_to_new_feed, cljs.core.ObjMap.fromObject(["\ufdd0:url"], {"\ufdd0:url":feed_url}))
 };
 clojure_course_task05.main.on_subscribe_click = function on_subscribe_click() {
-  return clojure_course_task05.main.prompt_feed_url.call(null, function(p1__13486_SHARP_) {
+  return clojure_course_task05.main.prompt_feed_url.call(null, function(p1__13958_SHARP_) {
     var trimmed = function() {
-      var and__3941__auto__ = p1__13486_SHARP_;
+      var and__3941__auto__ = p1__13958_SHARP_;
       if(cljs.core.truth_(and__3941__auto__)) {
-        return clojure.string.trim.call(null, p1__13486_SHARP_)
+        return clojure.string.trim.call(null, p1__13958_SHARP_)
       }else {
         return and__3941__auto__
       }
