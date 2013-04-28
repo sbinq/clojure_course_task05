@@ -58,6 +58,9 @@
 
 ;;; articles
 
+(defn read-article-by-id [article-id]
+  (first (select article (where {:id article-id}))))
+
 (defn article-exists? [a]
   (not (empty? (select article
                        (where {:feed_id (:feed_id a)
@@ -121,12 +124,12 @@
                                          :article_id (:id a)
                                          :status status}))
 
-(defn mark-user-article-read [u a]
-  (mark-user-article-read-status u a "read"))
-
-(defn mark-user-article-unread [u a]
-  (mark-user-article-read-status u a "unread"))
-
+(defn read-article-with-user-status-by-id [u article-id]
+  (let [a (read-article-by-id article-id)
+        status (:status (first (select user-article-status
+                                       (where (and (= :user_id (:id u))
+                                                   (= :article_id article-id))))))]
+    (first (adjust-articles-status-value-when-empty [(assoc a :status status)]))))
 
 ;;; higher level user actions
 

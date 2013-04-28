@@ -26,3 +26,8 @@
 
 (defn user-feed-articles [u feed-id]
   (pr-str {:articles (model/list-new-user-articles-by-feed u (model/read-feed-by-id feed-id))}))
+
+(defn mark-article-read-status [u article-id status]
+  (assert (or (= "unread" status) (= "read" status)))
+  (model/mark-user-article-read-status u (model/read-article-by-id article-id) status)
+  (pr-str {:article (model/read-article-with-user-status-by-id u article-id)}))

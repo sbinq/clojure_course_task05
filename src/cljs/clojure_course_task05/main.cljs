@@ -61,12 +61,35 @@
 
 ;;; Feed articles
 
+(defn article-item-ui-id [a]
+  (str "article-" (:id a)))
+
+(em/defaction mark-article-read-status [{a :article}]
+  [(str "#" (article-item-ui-id a))] (if (= (:status a) "read")
+                                       (em/add-class "muted")
+                                       (em/remove-class "muted"))
+  [(str "#" (article-item-ui-id a) " .article-read-indicator")] (if (= (:status a) "read")
+                                                                  (em/remove-style :display)
+                                                                  (em/set-style :display "none")))
+
+(defn try-mark-article-read-status [a status]
+  (util/post-data "/mark-article-read-status"
+                  mark-article-read-status
+                  {:article_id (:id a)
+                   :status status}))
+
+
 (em/defsnippet articles-list "html/fragments.html" ".feed-articles" [articles]
   [".feed-article-row"] (em/clone-for [a articles]
-                                      [".article-title"] (em/html-content (or (:title a) "(title unknown)"))
-                                      [".article-description"] (em/html-content (:description_value a))
-                                      [".article-link"] (em/set-attr :href (:link a))
-                                      [".article-published-date"] (em/content (format-date (:published_date a)))))
+                                      (em/do->
+                                       (em/set-attr :id (article-item-ui-id a))
+                                       #(em/at %
+                                               [".article-title"] (em/html-content (or (:title a) "(title unknown)"))
+                                               [".article-description"] (em/html-content (:description_value a))
+                                               [".article-link"] (em/set-attr :href (:link a))
+                                               [".article-published-date"] (em/content (format-date (:published_date a)))
+                                               [".mark-article-read"] (em/listen :click (fn [_] (try-mark-article-read-status a "read")))
+                                               [".mark-article-unread"] (em/listen :click (fn [_] (try-mark-article-read-status a "unread")))))))
 
 (em/defaction update-feed-articles [f {:keys [articles] :as response}]
   [".feed-header .feed-title"] (em/content (:title f))
@@ -75,6 +98,7 @@
 
 (defn try-update-feed-articles [f]
   (util/get-data (str "/user-feed-articles?feed_id=" (:id f)) #(update-feed-articles f %)))
+
 
 ;;; Feeds subscription
 
