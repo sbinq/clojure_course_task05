@@ -113,7 +113,8 @@
 
 
 (defn subscribed-to-new-feed [feeds new-feed]
-  (update-feed-list-items feeds new-feed))
+  (update-feed-list-items feeds new-feed)
+  (try-update-feed-articles new-feed))
 
 (defn maybe-subscribed-to-new-feed [{:keys [error feeds new-feed] :as response}]
   (if (empty? error)
