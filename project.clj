@@ -13,7 +13,8 @@
                  [com.cemerick/piggieback "0.0.4"]
                  [com.cemerick/friend "0.1.4"]]
   :plugins [[lein-ring "0.8.3"] [lein-cljsbuild "0.3.0"]]
-  :ring {:handler clojure-course-task05.handler/app}
+  :ring {:handler clojure-course-task05.handler/app
+         :init clojure-course-task05.handler/init }
   :profiles
   {:dev {:dependencies [[ring-mock "0.1.3"]]}}
   

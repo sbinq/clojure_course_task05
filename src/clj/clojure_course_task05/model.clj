@@ -1,21 +1,23 @@
 (ns clojure-course-task05.model
   (:require [korma [db :refer :all] [core :refer :all]]
             [feedparser-clj.core :as parser]
-            [cemerick.friend [credentials :as creds]]))
+            [cemerick.friend [credentials :as creds]])
+  (:import java.util.concurrent.Executors
+           java.util.concurrent.TimeUnit))
 
 
-;;; (defdb db (mysql {:user "root" :subname "//localhost:3306/boo?useUnicode=true&characterEncoding=UTF-8"}))
+(defdb db (mysql {:user "root" :subname "//localhost:3306/boo?useUnicode=true&characterEncoding=UTF-8"}))
 
-(def env (into {} (System/getenv)))
-(def dbhost (get env "OPENSHIFT_MYSQL_DB_HOST"))
-(def dbport (get env "OPENSHIFT_MYSQL_DB_PORT"))
-(def default-conn {:classname "com.mysql.jdbc.Driver"
-                             :subprotocol "mysql"
-                             :user "adminhXiXCUn"
-                             :password "kVuhlpeM6qJH"
-                             :subname (str "//" dbhost ":" dbport "/readertask05?useUnicode=true&characterEncoding=utf8")
-                             :delimiters "`"})
-(defdb db default-conn)
+;; (def env (into {} (System/getenv)))
+;; (def dbhost (get env "OPENSHIFT_MYSQL_DB_HOST"))
+;; (def dbport (get env "OPENSHIFT_MYSQL_DB_PORT"))
+;; (def default-conn {:classname "com.mysql.jdbc.Driver"
+;;                              :subprotocol "mysql"
+;;                              :user "adminhXiXCUn"
+;;                              :password "kVuhlpeM6qJH"
+;;                              :subname (str "//" dbhost ":" dbport "/readertask05?useUnicode=true&characterEncoding=utf8")
+;;                              :delimiters "`"})
+;; (defdb db default-conn)
 
 
 (defentity feed)
@@ -60,9 +62,10 @@
                  (where {:parse_url from-url}))))
 
 (defn add-feed-if-not-exists! [url]
+  "Returns pair - feed and flag indicating it was created now"
   (if-let [f (find-feed-from-url url)]
-    (:id f)
-    (first (vals (insert feed (values [(fetch-feed url)]))))))
+    [f false]
+    [(first (vals (insert feed (values [(fetch-feed url)])))) true]))
 
 (defn read-feed-by-id [feed-id]
   (first (select feed (where {:id feed-id}))))
@@ -172,23 +175,28 @@
                       (= :article.feed_id (:id f)))))))
 
 
-(defn fetch-feeds-updates [feeds]
-  (doseq [a (mapcat fetch-feed-articles feeds)]
-    (article-insert-if-not-exists! a)))
+(defn fetch-feeds-updates
+  ([] (fetch-feeds-updates (select feed)))
+  ([feeds]
+     (doseq [a (mapcat fetch-feed-articles feeds)]
+       (article-insert-if-not-exists! a))))
 
-(def ^:private feed-update-agent (agent nil)) ; using agent just to queue fetch jobs
+(defn schedule-feeds-updates [every-secs]
+  (.scheduleAtFixedRate (Executors/newScheduledThreadPool 1)
+                        #(try
+                           (println "Starting feeds update..")
+                           (fetch-feeds-updates)
+                           (println "Updated feeds successfully")
+                           (catch Exception e
+                             ;; TODO: logging, not printing
+                             (println "Error updating feeds:" (.getMessage e) (.getClass e))))
+                        0 every-secs TimeUnit/SECONDS))
 
-(defn trigger-feeds-updates
-  ([] (trigger-feeds-updates (select feed)))
-  ([feeds] (send-off feed-update-agent #(fetch-feeds-updates %2) feeds)))
-
-;;; TODO: add 'cron' job to periodically update feeds articles
 
 (defn subscribe-user-to-feed [u from-url]
-  (let [id (add-feed-if-not-exists! from-url)
-        f (first (select feed (where {:id id})))]
+  (let [[f created?] (add-feed-if-not-exists! from-url)]
     (add-user-feed-if-not-exists! u f)
-    (fetch-feeds-updates [f])           ; TODO: should this be only for new feeds - not yet in system?
+    (if created? (fetch-feeds-updates [f]))
     f))
 
 

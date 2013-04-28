@@ -55,5 +55,11 @@
              noir/app-handler
              noir/war-handler))
 
+(defn init []
+  ;; TODO: logging!
+  (println "Initializing feeds update scheduler")
+  (model/schedule-feeds-updates 3600)
+  (println "Finished"))
+
 (comment
   (defonce server (jetty/run-jetty #'app {:port 3000 :join? false})))
